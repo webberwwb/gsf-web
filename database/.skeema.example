@@ -1,0 +1,39 @@
+# Skeema configuration file example
+# Copy this to .skeema and update with your actual values
+# See https://www.skeema.io/docs/options/ for all options
+
+# Default schema name
+default-schema=gsf_web
+
+# Host configuration
+host=localhost
+port=3306
+user=root
+password=
+
+# SSL configuration (uncomment and configure for Cloud SQL)
+# ssl-mode=REQUIRED
+# ssl-ca=/path/to/server-ca.pem
+# ssl-cert=/path/to/client-cert.pem
+# ssl-key=/path/to/client-key.pem
+
+# Connection pool settings
+connect-timeout=10
+read-timeout=30
+
+# Schema management
+allow-drop-table=false
+allow-drop-column=false
+allow-drop-index=false
+allow-drop-foreign-key=false
+
+# Output format
+format=sql
+
+# Flavor (MySQL version)
+flavor=mysql:8.0
+
+# Ignore patterns (optional)
+# ignore-table=^temp_
+# ignore-column=^deleted_at
+
