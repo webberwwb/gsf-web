@@ -24,12 +24,12 @@
               <ul class="nav_scroll">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#service">Service</a></li>
+                <li><a href="#service">Products</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <!-- <li><a href="#team">Team</a></li> -->
-                <li><a href="#testimonial">Testimonial</a></li>
+                <!-- <li><a href="#testimonial">Testimonial</a></li> -->
                 <!-- <li><a href="#blog">Blog</a></li> -->
-                <li><a href="#contact">Contact</a></li>
+                <!-- <li><a href="#contact">Contact</a></li> -->
               </ul>
             </div>
           </div>
@@ -61,20 +61,32 @@
             <h1 class="mobile-logo-title">GrainStoryFarm</h1>
           </router-link>
         </div>
+        <button class="mobile-hamburger" @click="toggleMobileMenu" :class="{ active: mobileMenuOpen }">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-      <div class="mobile-menu">
-        <nav class="header-menu">
-          <ul class="nav_scroll">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#service">Service</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <!-- <li><a href="#team">Team</a></li> -->
-            <li><a href="#testimonial">Testimonial</a></li>
-            <!-- <li><a href="#blog">Blog</a></li> -->
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
+      <!-- Yellow Navigation Bar - shown when hamburger is toggled -->
+      <div class="mobile-nav-bar" :class="{ active: mobileMenuOpen }">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="header-menu">
+                <ul class="nav_scroll">
+                  <li><a href="#home" @click="closeMobileMenu">Home</a></li>
+                  <li><a href="#about" @click="closeMobileMenu">About</a></li>
+                  <li><a href="#service" @click="closeMobileMenu">Products</a></li>
+                  <li><a href="#faq" @click="closeMobileMenu">FAQ</a></li>
+                  <!-- <li><a href="#team">Team</a></li> -->
+                  <!-- <li><a href="#testimonial" @click="closeMobileMenu">Testimonial</a></li> -->
+                  <!-- <li><a href="#blog">Blog</a></li> -->
+                  <!-- <li><a href="#contact" @click="closeMobileMenu">Contact</a></li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -666,12 +678,12 @@ import blog1 from '@/images/blog1.png'
 import blog2 from '@/images/blog2.png'
 import blog3 from '@/images/blog3.png'
 import testimonialMaxine from '@/images/testimonials/M.axine.jpg'
-import testimonialVirginia from '@/images/testimonials/咕嘟娆Virginia.jpg'
+import testimonialVirginia from '@/images/testimonials/Virginia.jpg'
 import testimonialTereza from '@/images/testimonials/Tereza Xiong.jpg'
 import testimonialFybin from '@/images/testimonials/Fybin.jpg'
-import testimonialDiamondWolf from '@/images/testimonials/钻石狼王.jpg'
-import testimonialXiaofuxing from '@/images/testimonials/小福星花花.jpg'
-import testimonialXushuxia from '@/images/testimonials/许书侠.jpg'
+import testimonialDiamondWolf from '@/images/testimonials/DiamondWolf.jpg'
+import testimonialHuahua from '@/images/testimonials/huahua.jpg'
+import testimonialXSX from '@/images/testimonials/XSX.jpg'
 import testimonialC from '@/images/testimonials/C.jpg'
 import testimonialMary from '@/images/testimonials/Mary.jpg'
 import testimonialDongni from '@/images/testimonials/dongni.jpg'
@@ -692,6 +704,7 @@ export default {
       loading: true,
       sidebarOpen: false,
       searchOpen: false,
+      mobileMenuOpen: false,
       searchQuery: '',
       activeFaq: null,
       showSuccessModal: false,
@@ -781,7 +794,7 @@ export default {
         },
         {
           text: 'The pearl chicken was delicious—perfect for nourishing this pregnant mama!',
-          name: '咕嘟娆Virginia',
+          name: 'Virginia',
           role: 'Customer',
           image: testimonialVirginia
         },
@@ -799,21 +812,21 @@ export default {
         },
         {
           text: 'So tasty and incredibly fresh—when I got the chicken, it looked almost like it was still alive!',
-          name: '钻石狼王',
+          name: 'DiamondWolf',
           role: 'Customer',
           image: testimonialDiamondWolf
         },
         {
           text: 'Everything from your farm tastes absolutely amazing.',
-          name: '小福星花花',
+          name: 'huahua',
           role: 'Customer',
-          image: testimonialXiaofuxing
+          image: testimonialHuahua
         },
         {
           text: 'Your pork is amazing—even the fatty cuts are delicious, stir-fries come out crispy and fragrant, and the quality is on par with butcher-shop pork but at a better value.',
-          name: '许书侠',
+          name: 'XSX',
           role: 'Customer',
-          image: testimonialXushuxia
+          image: testimonialXSX
         },
         {
           text: 'Compared to supermarket meat that barely renders any fat, your pork releases rich natural oil even from a small piece of fatty cut—totally worth the price.',
@@ -864,6 +877,12 @@ export default {
     },
     toggleSearch() {
       this.searchOpen = !this.searchOpen
+    },
+    toggleMobileMenu() {
+      this.mobileMenuOpen = !this.mobileMenuOpen
+    },
+    closeMobileMenu() {
+      this.mobileMenuOpen = false
     },
     toggleFaq(index) {
       this.activeFaq = this.activeFaq === index ? null : index
@@ -1450,5 +1469,108 @@ export default {
   background-color: #E8B94F;
   width: 30px;
   border-radius: 6px;
+}
+
+/* Mobile hamburger menu styling */
+@media (max-width: 991px) {
+  /* Hide the yellow navigation bar on mobile */
+  .buddy-header-area.style_two {
+    display: none !important;
+  }
+  
+  /* Mobile menu header with hamburger */
+  .mobile-menu-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+  
+  /* Hamburger button */
+  .mobile-hamburger {
+    background: none;
+    border: none;
+    width: 24px;
+    height: 18px;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .mobile-hamburger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #333;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+  
+  .mobile-hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+  
+  /* Yellow Navigation Bar - shown when hamburger is toggled */
+  .mobile-nav-bar {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: #E8B94F;
+    padding: 0;
+  }
+  
+  .mobile-nav-bar.active {
+    max-height: 400px;
+    padding: 0;
+  }
+  
+  .mobile-nav-bar .nav_scroll {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .mobile-nav-bar .nav_scroll li {
+    flex: 1 1 auto;
+    border: none;
+  }
+  
+  .mobile-nav-bar .nav_scroll li a {
+    display: block;
+    padding: 15px 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Roboto";
+    transition: background 0.3s ease;
+    text-align: center;
+  }
+  
+  .mobile-nav-bar .nav_scroll li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+  }
+  
+  /* Hide meanmenu default styling */
+  .mean-container a.meanmenu-reveal {
+    display: none !important;
+  }
 }
 </style>
