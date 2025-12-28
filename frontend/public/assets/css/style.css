@@ -2457,10 +2457,10 @@ section.testimonial_area.style_two {
     transition: .5s;
 }
 .testimonial_item.style_two:hover .testimonial-content:before {
-    border-top: 20px solid #9f6f36;
+    border-top: 20px solid #E8B94F;
 }
 .testimonial_item.style_two .testi-star {
-    background-color: #9f6f36;
+    background-color: #E8B94F;
     display: inline-block;
     padding: 8px 96px 8px 35px;
     position: absolute;
@@ -2471,7 +2471,7 @@ section.testimonial_area.style_two {
 }
 .testimonial_item.style_two .testi-star i {
     font-size: 14px;
-    color: #E1F2E1;
+    color: #ffffff;
     margin-bottom: 0;
     margin-right: 5px;
 }

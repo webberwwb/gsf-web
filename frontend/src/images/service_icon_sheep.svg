@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80">
+  <g transform="translate(-8, 8) scale(0.65)">
+    <!-- Sheep body outline -->
+    <path d="M 50 45 Q 45 40 45 50 Q 45 65 55 70 Q 65 75 75 75 Q 85 75 95 70 Q 105 65 105 50 Q 105 40 100 45 Q 95 35 85 35 Q 75 30 65 30 Q 55 30 45 35 Q 40 40 50 45 Z" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Wool texture lines -->
+    <path d="M 55 50 Q 58 47 60 50" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 65 55 Q 68 52 70 55" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 75 55 Q 78 52 80 55" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 60 63 Q 63 60 65 63" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 70 63 Q 73 60 75 63" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 45 57 Q 48 54 50 57" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 80 57 Q 83 54 85 57" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Sheep head outline -->
+    <ellipse cx="65" cy="32" rx="14" ry="16" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Wool texture on head -->
+    <path d="M 57 28 Q 59 26 60 28" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 65 28 Q 67 26 70 28" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 61 35 Q 63 33 65 35" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Ears -->
+    <ellipse cx="53" cy="25" rx="3.5" ry="6" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="77" cy="25" rx="3.5" ry="6" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Eyes -->
+    <circle cx="60" cy="30" r="1.5" fill="none" stroke="#333" stroke-width="2"/>
+    <circle cx="70" cy="30" r="1.5" fill="none" stroke="#333" stroke-width="2"/>
+    
+    <!-- Nose -->
+    <ellipse cx="65" cy="36" rx="2" ry="1.5" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Legs -->
+    <line x1="60" y1="75" x2="60" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="67" y1="75" x2="67" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="73" y1="75" x2="73" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="80" y1="75" x2="80" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Hooves -->
+    <line x1="58" y1="85" x2="62" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="65" y1="85" x2="69" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="71" y1="85" x2="75" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="78" y1="85" x2="82" y2="85" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>
+

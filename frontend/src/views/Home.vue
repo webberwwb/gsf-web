@@ -14,7 +14,7 @@
           <div class="col-lg-3">
             <div class="header-logo">
               <router-link to="/" class="d-flex align-items-center">
-                <img src="/assets/images/grainstoryfarm/logos/dark.png" alt="GrainStoryFarm Logo" />
+                <img :src="logoDark" alt="GrainStoryFarm Logo" />
                 <h1 class="logo-title">GrainStoryFarm</h1>
               </router-link>
             </div>
@@ -27,7 +27,7 @@
                 <li><a href="#service">Service</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <!-- <li><a href="#team">Team</a></li> -->
-                <!-- <li><a href="#testimonial">Testimonial</a></li> -->
+                <li><a href="#testimonial">Testimonial</a></li>
                 <!-- <li><a href="#blog">Blog</a></li> -->
                 <li><a href="#contact">Contact</a></li>
               </ul>
@@ -54,6 +54,14 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none">
+      <div class="mobile-menu-header">
+        <div class="mobile-menu-logo">
+          <router-link to="/" class="d-flex align-items-center">
+            <img :src="logoDark" alt="GrainStoryFarm Logo" />
+            <h1 class="mobile-logo-title">GrainStoryFarm</h1>
+          </router-link>
+        </div>
+      </div>
       <div class="mobile-menu">
         <nav class="header-menu">
           <ul class="nav_scroll">
@@ -62,7 +70,7 @@
             <li><a href="#service">Service</a></li>
             <li><a href="#faq">FAQ</a></li>
             <!-- <li><a href="#team">Team</a></li> -->
-            <!-- <li><a href="#testimonial">Testimonial</a></li> -->
+            <li><a href="#testimonial">Testimonial</a></li>
             <!-- <li><a href="#blog">Blog</a></li> -->
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -85,7 +93,7 @@
               <div class="content-inner">
                 <div class="nav-logo">
                   <router-link to="/">
-                    <img src="/assets/images/grainstoryfarm/logos/dark.png" alt="GrainStoryFarm Logo" />
+                    <img :src="logoDark" alt="GrainStoryFarm Logo" />
                   </router-link>
                 </div>
                 <div class="contact-info">
@@ -162,27 +170,10 @@
           </div>
           <div class="col-lg-7 col-md-12">
             <div class="about_content">
-              <p>Grain Story Farm is an online retail business dedicated to connecting city customers with trusted local farmers. We proudly partner with family-owned farms that raise and produce fresh, high-quality meat with care and integrity.</p>
+              <p>Grain Story Farm is dedicated to connecting city customers with trusted local farmers. We proudly partner with family-owned farms that raise and produce fresh, high-quality meat with care and integrity.</p>
               <p>Our product selection includes chicken, duck, geese, pigeon, guinea fowl, pheasant, Berkshire pork, goat, and lamb. All of our animals are free-run and raised without antibiotics or added hormones. We believe that healthy, well-cared-for animals create the most delicious and naturally flavorful meat.</p>
               <p>To ensure exceptional freshness, we operate on a pre-order model. Once an order is placed, the animals are sent to a licensed processing plant and prepared according to the exact order quantity. This approach guarantees that every product delivered to our customers is as fresh as possible.</p>
-              <div class="banner_play about_flip">
-                <a data-aos="flip-left" class="banner-play-btn" href="#contact">
-                  <div class="text-inner">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="250.5" height="250.5" viewBox="0 0 250.5 250.5">
-                      <path d="M.25,125.25a125,125,0,1,1,125,125,125,125,0,0,1-125-125" id="e-path-35ee1b2"></path>
-                      <text>
-                        <textPath id="e-text-path-35ee1b2" href="#e-path-35ee1b2" startOffset="0%">
-                          Contact Now  Contact Now   Contact Now
-                        </textPath>
-                      </text>
-                    </svg>
-                  </div>
-                </a>
-                <div class="about_warpp">
-                  <a class="about_right_btn" href="#about"><i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-              <div class="about_shape bounce-animate3">
+              <div class="about_content_image">
                 <img :src="aboutImage" alt="GrainStoryFarm" />
               </div>
             </div>
@@ -205,7 +196,7 @@
               <p>We offer a wide selection of premium meats, all raised free-run without antibiotics or added hormones, ensuring the most delicious and naturally flavorful products.</p>
             </div>
             <div class="buddy_btn_home_two buddy_btn">
-              <a href="#service">View All Service<span></span></a>
+              <a href="#contact">Find All Products<span></span></a>
             </div>
           </div>
           <div class="col-lg-7 col-md-12">
@@ -341,7 +332,7 @@
     </div>
 
     <!-- Testimonial Section -->
-    <!-- <section id="testimonial" class="testimonial_area style_two">
+    <section id="testimonial" class="testimonial_area style_two">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-3">
@@ -351,7 +342,7 @@
               <p>Hear from our satisfied customers about their experience with GrainStoryFarm. We're proud to serve our community with fresh, quality poultry products.</p>
             </div>
             <div class="buddy_btn_home_two testimonal_btn buddy_btn">
-              <a href="#testimonial">View All Feedback<span></span></a>
+              <a href="#contact">Order Now<span></span></a>
             </div>
           </div>
           <div class="col-lg-9">
@@ -376,10 +367,20 @@
                 </div>
               </div>
             </div>
+            <!-- Custom dots navigation -->
+            <div class="custom-testimonial-dots">
+              <button
+                v-for="(testimonial, index) in testimonials"
+                :key="index"
+                :class="['custom-dot', { active: currentTestimonialIndex === index }]"
+                @click="goToTestimonial(index)"
+                :aria-label="`Go to testimonial ${index + 1}`"
+              ></button>
+            </div>
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
 
     <!-- Blog Section -->
     <!-- <section id="blog" class="blog_area style_two">
@@ -515,10 +516,10 @@
           <div class="col-lg-4 col-md-6">
             <div class="footer_logo">
               <router-link to="/">
-                <img src="/assets/images/grainstoryfarm/logos/white.png" alt="GrainStoryFarm Logo" />
+                <img :src="logoWhite" alt="GrainStoryFarm Logo" />
               </router-link>
             </div>
-            <p class="footer_desc">Grain Story Farm is an online retail business dedicated to connecting city customers with trusted local farmers. We partner with family-owned farms to deliver fresh, high-quality meat products raised without antibiotics or added hormones.</p>
+            <p class="footer_desc">Grain Story Farm is dedicated to connecting city customers with trusted local farmers. We partner with family-owned farms to deliver fresh, high-quality meat products raised without antibiotics or added hormones.</p>
           </div>
           <div class="col-lg-1"></div>
           <div class="col-lg-2 col-md-6">
@@ -530,7 +531,8 @@
                 <ul>
                   <li><a href="#about"><i class="bi bi-chevron-double-right"></i> About Us</a></li>
                   <!-- <li><a href="#team"><i class="bi bi-chevron-double-right"></i> Meet The Team</a></li> -->
-                  <li><a href="#service"><i class="bi bi-chevron-double-right"></i> Services</a></li>
+                  <li><a href="#service"><i class="bi bi-chevron-double-right"></i> Products</a></li>
+                  <li><a href="#testimonial"><i class="bi bi-chevron-double-right"></i> Feedbacks</a></li>
                   <li><a href="#contact"><i class="bi bi-chevron-double-right"></i> Contact Us</a></li>
                   <!-- <li><a href="#blog"><i class="bi bi-chevron-double-right"></i> Blog</a></li> -->
                 </ul>
@@ -574,7 +576,7 @@
                 <h4>WeChat</h4>
               </div>
               <div class="footer-wechat-qr">
-                <img src="/assets/images/grainstoryfarm/QR.png" alt="WeChat QR Code" />
+                <img :src="wechatQR" alt="WeChat QR Code" />
               </div>
             </div>
           </div>
@@ -591,9 +593,7 @@
             <div class="footer-bottom-content">
               <div class="footer-bottom-menu">
                 <ul>
-                  <li><a href="#">FACEBOOK</a></li>
-                  <li><a href="#">TWITTER</a></li>
-                  <li><a href="#">INSTAGRAM</a></li>
+                  <li><a href="https://www.xiaohongshu.com/user/profile/663fa6330000000003030ee6" target="_blank" rel="noopener noreferrer">RED (xiao hong shu)</a></li>
                 </ul>
               </div>
             </div>
@@ -641,6 +641,9 @@
 
 <script>
 import logoImage from '@/images/gsf-icon.png'
+import logoDark from '@/images/logo-dark.png'
+import logoWhite from '@/images/logo-white.png'
+import wechatQR from '@/images/wechat-qr.png'
 import faqImage from '@/images/main-widget-2.JPG'
 import aboutImage from '@/images/main-widget-1.JPG'
 import aboutThumbImage from '@/images/main-widget-0.JPG'
@@ -649,6 +652,8 @@ import shapeImage from '@/images/shape.png'
 import serviceIcon1 from '@/images/service_icon1.png'
 import serviceIcon2 from '@/images/service_icon2.png'
 import serviceIcon3 from '@/images/service_icon3.png'
+import serviceIconSheep from '@/images/service_icon_sheep.svg'
+import serviceIconPig from '@/images/service_icon_pig.svg'
 import marqueeStar from '@/images/marquee_star.png'
 import team1 from '@/images/team1.png'
 import team2 from '@/images/team2.png'
@@ -660,12 +665,25 @@ import author3 from '@/images/aouthor3.png'
 import blog1 from '@/images/blog1.png'
 import blog2 from '@/images/blog2.png'
 import blog3 from '@/images/blog3.png'
+import testimonialMaxine from '@/images/testimonials/M.axine.jpg'
+import testimonialVirginia from '@/images/testimonials/咕嘟娆Virginia.jpg'
+import testimonialTereza from '@/images/testimonials/Tereza Xiong.jpg'
+import testimonialFybin from '@/images/testimonials/Fybin.jpg'
+import testimonialDiamondWolf from '@/images/testimonials/钻石狼王.jpg'
+import testimonialXiaofuxing from '@/images/testimonials/小福星花花.jpg'
+import testimonialXushuxia from '@/images/testimonials/许书侠.jpg'
+import testimonialC from '@/images/testimonials/C.jpg'
+import testimonialMary from '@/images/testimonials/Mary.jpg'
+import testimonialDongni from '@/images/testimonials/dongni.jpg'
 
 export default {
   name: 'Home',
   data() {
     return {
       logoImage,
+      logoDark,
+      logoWhite,
+      wechatQR,
       faqImage,
       aboutImage,
       aboutThumbImage,
@@ -677,6 +695,8 @@ export default {
       searchQuery: '',
       activeFaq: null,
       showSuccessModal: false,
+      currentTestimonialIndex: 0,
+      testimonialCarousel: null,
       contactForm: {
         name: '',
         email: '',
@@ -688,22 +708,22 @@ export default {
         {
           title: 'Chicken & Duck',
           description: 'Fresh chicken and duck raised free-run without antibiotics or added hormones. Partnering with trusted local family farms for premium quality poultry products.',
-          icon: serviceIcon1
+          icon: serviceIcon2
         },
         {
           title: 'Geese, Pigeon & Game Birds',
           description: 'Premium geese, pigeon, guinea fowl, and pheasant from local farms. All raised with care and integrity, ensuring exceptional flavor and quality.',
-          icon: serviceIcon2
+          icon: serviceIcon1
         },
         {
           title: 'Berkshire Pork',
           description: 'High-quality Berkshire pork from family-owned farms. Raised free-run without antibiotics or hormones, delivering naturally flavorful and delicious meat.',
-          icon: serviceIcon3
+          icon: serviceIconPig
         },
         {
           title: 'Goat & Lamb',
           description: 'Fresh goat and lamb products from trusted local farmers. All animals are raised with care, ensuring premium quality and exceptional freshness through our pre-order model.',
-          icon: serviceIcon1
+          icon: serviceIconSheep
         }
       ],
       faqs: [
@@ -754,22 +774,64 @@ export default {
       ],
       testimonials: [
         {
-          text: 'GrainStoryFarm has been our go-to source for fresh, organic poultry for over two years. The quality is consistently excellent, and we love knowing that the chickens are raised humanely and sustainably. The difference in taste is remarkable!',
-          name: 'Satisfied Customer',
-          role: 'Local Restaurant Owner',
-          image: author1
+          text: 'So delicious—we made soy-sauce duck at home and it tasted amazing!',
+          name: 'M.axine',
+          role: 'Customer',
+          image: testimonialMaxine
         },
         {
-          text: 'As someone who cares deeply about where my food comes from, GrainStoryFarm is a perfect fit. Their commitment to sustainable farming and animal welfare shows in every product. The eggs are the freshest I\'ve ever had!',
-          name: 'Happy Customer',
-          role: 'Regular Customer',
-          image: author3
+          text: 'The pearl chicken was delicious—perfect for nourishing this pregnant mama!',
+          name: '咕嘟娆Virginia',
+          role: 'Customer',
+          image: testimonialVirginia
         },
         {
-          text: 'We\'ve been buying from GrainStoryFarm for our family meals, and we couldn\'t be happier. The chickens are raised with care, and you can taste the quality. It\'s wonderful to support a local farm that values sustainability and animal welfare.',
-          name: 'Loyal Customer',
-          role: 'Family Customer',
-          image: author2
+          text: 'The water duck was super fragrant with no fishy taste—way better than anything from the supermarket.',
+          name: 'Tereza Xiong',
+          role: 'Customer',
+          image: testimonialTereza
+        },
+        {
+          text: 'The duck was unbelievably delicious—perfect for soup or braising, and one bite instantly took me back to a countryside farm in China.',
+          name: 'Fybin',
+          role: 'Customer',
+          image: testimonialFybin
+        },
+        {
+          text: 'So tasty and incredibly fresh—when I got the chicken, it looked almost like it was still alive!',
+          name: '钻石狼王',
+          role: 'Customer',
+          image: testimonialDiamondWolf
+        },
+        {
+          text: 'Everything from your farm tastes absolutely amazing.',
+          name: '小福星花花',
+          role: 'Customer',
+          image: testimonialXiaofuxing
+        },
+        {
+          text: 'Your pork is amazing—even the fatty cuts are delicious, stir-fries come out crispy and fragrant, and the quality is on par with butcher-shop pork but at a better value.',
+          name: '许书侠',
+          role: 'Customer',
+          image: testimonialXushuxia
+        },
+        {
+          text: 'Compared to supermarket meat that barely renders any fat, your pork releases rich natural oil even from a small piece of fatty cut—totally worth the price.',
+          name: 'C',
+          role: 'Customer',
+          image: testimonialC
+        },
+        {
+          text: 'It was so delicious that we ate two chickens very fast—next time I\'m definitely getting three!',
+          name: 'Mary',
+          role: 'Customer',
+          image: testimonialMary
+        },
+        {
+          text: 'I stir-fried the chicken giblets yesterday and it was unbelievably delicious.',
+          name: 'dongni',
+          role: 'Customer',
+          image: testimonialDongni
         }
       ],
       blogPosts: [
@@ -825,6 +887,12 @@ export default {
     },
     closeSuccessModal() {
       this.showSuccessModal = false
+    },
+    goToTestimonial(index) {
+      if (this.testimonialCarousel) {
+        this.testimonialCarousel.trigger('to.owl.carousel', index)
+        this.currentTestimonialIndex = index
+      }
     }
   },
   mounted() {
@@ -837,17 +905,32 @@ export default {
     this.$nextTick(() => {
       if (window.jQuery) {
         // Initialize carousels, counters, etc.
-        // Commented out - testimonial and blog sections are hidden
-        // if (window.jQuery('.testi_list').length) {
-        //   window.jQuery('.testi_list').owlCarousel({
-        //     items: 1,
-        //     loop: true,
-        //     autoplay: true,
-        //     autoplayTimeout: 5000,
-        //     nav: false,
-        //     dots: true
-        //   })
-        // }
+        if (window.jQuery('.testi_list').length) {
+          // Wait a bit for Vue to fully render all testimonials
+          setTimeout(() => {
+            const $carousel = window.jQuery('.testi_list')
+            if ($carousel.length && !$carousel.hasClass('owl-loaded')) {
+              const carousel = $carousel.owlCarousel({
+                items: 1,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                nav: false,
+                dots: false,
+                margin: 30,
+                slideBy: 1
+              })
+              
+              // Store carousel reference
+              this.testimonialCarousel = $carousel
+              
+              // Update active dot on slide change
+              $carousel.on('changed.owl.carousel', (event) => {
+                this.currentTestimonialIndex = event.item.index
+              })
+            }
+          }, 300)
+        }
         // if (window.jQuery('.blog_list2').length) {
         //   window.jQuery('.blog_list2').owlCarousel({
         //     items: 3,
@@ -1020,6 +1103,22 @@ export default {
   border-radius: 10px;
 }
 
+/* About Content Image */
+.about_content_image {
+  margin-top: 40px;
+  overflow: hidden;
+  border-radius: 10px;
+  max-width: 550px;
+}
+
+.about_content_image img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 @media (max-width: 991px) {
   .about_thumb img {
     width: 100%;
@@ -1029,6 +1128,63 @@ export default {
     width: 100%;
     height: auto;
     max-width: 401px;
+  }
+  
+  .about_content_image {
+    margin-top: 20px;
+  }
+  
+  .about_content_image img {
+    max-width: 100%;
+  }
+}
+
+/* Mobile Menu Logo */
+.mobile-menu-header {
+  padding: 15px 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-menu-logo {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-menu-logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-menu-logo img {
+  max-height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.mobile-logo-title {
+  margin: 0;
+  margin-left: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+  .mobile-menu-header {
+    padding: 12px 15px;
+  }
+  
+  .mobile-menu-logo img {
+    max-height: 35px;
+  }
+  
+  .mobile-logo-title {
+    font-size: 1.2rem;
+    margin-left: 10px;
   }
 }
 
@@ -1191,5 +1347,108 @@ export default {
   .success-modal-icon i {
     font-size: 48px;
   }
+}
+
+/* Footer copyright mobile alignment */
+@media (max-width: 767px) {
+  .row.add-border .footer-bottom-content-copy {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  .row.add-border .footer-bottom-content-copy p {
+    text-align: left !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  .row.add-border .col-md-7 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .row.add-border .col-md-5 {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left !important;
+  }
+  
+  .row.add-border .footer-bottom-menu {
+    text-align: left !important;
+    margin-top: 10px;
+  }
+  
+  .row.add-border .footer-bottom-menu ul {
+    padding-left: 0;
+    margin: 0;
+  }
+}
+
+/* RED link underline styling */
+.row.add-border .footer-bottom-menu ul li a {
+  text-decoration: underline !important;
+}
+
+.row.add-border .footer-bottom-menu ul li a:hover {
+  text-decoration: underline !important;
+}
+
+/* Testimonial avatar size */
+.testi-author-thumb img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+/* Testimonial carousel styling */
+.testi_list .col-lg-12 {
+  padding: 0 15px;
+}
+
+/* Limit testimonial card max width on large screens only */
+@media (min-width: 992px) {
+  .testimonial_item.style_two {
+    max-width: 720px;
+    margin-left: 30px;
+    margin-right: auto;
+  }
+}
+
+/* Center align items vertically in testimonial section */
+#testimonial .row {
+  align-items: center;
+}
+
+/* Custom testimonial dots */
+.custom-testimonial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.custom-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.custom-dot:hover {
+  background-color: #bbb;
+  transform: scale(1.2);
+}
+
+.custom-dot.active {
+  background-color: #E8B94F;
+  width: 30px;
+  border-radius: 6px;
 }
 </style>
