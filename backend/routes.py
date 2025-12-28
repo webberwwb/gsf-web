@@ -1,8 +1,72 @@
 from flask import Blueprint, jsonify, request, current_app
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail as SendGridMail
+from functools import wraps
 
 api_bp = Blueprint('api', __name__)
+
+# Allowed domains - requests must come from these domains
+ALLOWED_DOMAINS = [
+    'grainstoryfarm.ca',
+    'www.grainstoryfarm.ca',
+    'gsf-web-frontend-tct5yovb4q-uc.a.run.app',
+    'backend.grainstoryfarm.ca'  # In case you map a subdomain later
+]
+
+def verify_domain(f):
+    """Decorator to verify request comes from allowed domain (for single-domain setup)"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Get domain from various headers (for proxied requests)
+        domain = None
+        
+        # Check X-Forwarded-Host first (set by nginx proxy)
+        forwarded_host = request.headers.get('X-Forwarded-Host', '')
+        if forwarded_host:
+            domain = forwarded_host.split(':')[0]
+        
+        # Check Origin header (for direct browser requests)
+        if not domain:
+            origin = request.headers.get('Origin', '')
+            if origin:
+                try:
+                    from urllib.parse import urlparse
+                    domain = urlparse(origin).netloc.split(':')[0]
+                except:
+                    pass
+        
+        # Check Referer header (fallback)
+        if not domain:
+            referer = request.headers.get('Referer', '')
+            if referer:
+                try:
+                    from urllib.parse import urlparse
+                    domain = urlparse(referer).netloc.split(':')[0]
+                except:
+                    pass
+        
+        # Check Host header (last resort)
+        if not domain:
+            host = request.headers.get('Host', '')
+            if host:
+                domain = host.split(':')[0]
+        
+        # Verify domain is allowed
+        if domain:
+            is_allowed = any(
+                domain == allowed or domain.endswith('.' + allowed)
+                for allowed in ALLOWED_DOMAINS
+            )
+            if is_allowed:
+                return f(*args, **kwargs)
+        
+        # Deny if no valid domain found
+        return jsonify({
+            'success': False,
+            'message': 'Access denied. Requests must come from grainstoryfarm.ca'
+        }), 403
+    
+    return decorated_function
 
 @api_bp.route('/health', methods=['GET'])
 def health_check():
@@ -23,6 +87,7 @@ def test():
     }), 200
 
 @api_bp.route('/contact', methods=['POST'])
+@verify_domain
 def submit_contact():
     """Handle contact form submission and send email"""
     try:

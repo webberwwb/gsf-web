@@ -9,7 +9,14 @@ def create_app(config_class=Config):
     
     # Initialize extensions
     db.init_app(app)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # CORS - only allow requests from your domain
+    allowed_origins = [
+        "https://grainstoryfarm.ca",
+        "https://www.grainstoryfarm.ca",
+        "https://gsf-web-frontend-tct5yovb4q-uc.a.run.app",
+        "https://backend.grainstoryfarm.ca"  # In case you map a subdomain later
+    ]
+    CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
     
     # Register blueprints
     from routes import api_bp

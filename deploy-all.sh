@@ -6,12 +6,29 @@ PROJECT_ID="focused-mote-477703-f0"
 
 echo "Deploying to project: $PROJECT_ID"
 
-# Enable required APIs
-echo "Enabling required APIs..."
-gcloud services enable cloudbuild.googleapis.com run.googleapis.com containerregistry.googleapis.com --project=$PROJECT_ID
+# Skip API enablement - assume they're already enabled
+# If you need to enable them, run manually:
+# gcloud services enable cloudbuild.googleapis.com run.googleapis.com containerregistry.googleapis.com --project=$PROJECT_ID
 
 # Deploy Backend
 echo "Building and deploying backend..."
+
+# Read SendGrid API key from backend/.env if it exists
+if [ -f "backend/.env" ]; then
+    SENDGRID_API_KEY=$(grep "^SENDGRID_API_KEY=" backend/.env | cut -d '=' -f2 | tr -d '"' | tr -d "'")
+    MAIL_FROM=$(grep "^MAIL_FROM=" backend/.env | cut -d '=' -f2 | tr -d '"' | tr -d "'" || echo "web@grainstoryfarm.ca")
+else
+    SENDGRID_API_KEY=""
+    MAIL_FROM="web@grainstoryfarm.ca"
+fi
+
+# Build env vars string
+BACKEND_ENV_VARS="MYSQL_DATABASE=gsf_web"
+if [ ! -z "$SENDGRID_API_KEY" ]; then
+    BACKEND_ENV_VARS="$BACKEND_ENV_VARS,SENDGRID_API_KEY=$SENDGRID_API_KEY"
+fi
+BACKEND_ENV_VARS="$BACKEND_ENV_VARS,MAIL_FROM=$MAIL_FROM"
+
 cd backend
 gcloud builds submit --tag gcr.io/$PROJECT_ID/gsf-web-backend --project=$PROJECT_ID
 BACKEND_URL=$(gcloud run deploy gsf-web-backend \
@@ -19,7 +36,7 @@ BACKEND_URL=$(gcloud run deploy gsf-web-backend \
     --platform managed \
     --region us-central1 \
     --allow-unauthenticated \
-    --set-env-vars MYSQL_DATABASE=gsf_web \
+    --set-env-vars $BACKEND_ENV_VARS \
     --project=$PROJECT_ID \
     --format="value(status.url)")
 
@@ -28,6 +45,13 @@ echo "Backend deployed at: $BACKEND_URL"
 # Deploy Frontend
 echo "Building and deploying frontend..."
 cd ../frontend
+
+# Create .env.production with the backend URL (this gets baked into the build)
+echo "VITE_API_BASE_URL=$BACKEND_URL/api" > .env.production
+echo "Building frontend with backend URL: $BACKEND_URL"
+npm run build
+
+# Build Docker image with the built dist folder
 gcloud builds submit --tag gcr.io/$PROJECT_ID/gsf-web-frontend --project=$PROJECT_ID
 
 # Deploy and get the new revision name
@@ -36,7 +60,6 @@ NEW_REVISION=$(gcloud run deploy gsf-web-frontend \
     --platform managed \
     --region us-central1 \
     --allow-unauthenticated \
-    --set-env-vars VITE_API_BASE_URL=$BACKEND_URL/api \
     --project=$PROJECT_ID \
     --format="value(metadata.name)" 2>&1)
 
