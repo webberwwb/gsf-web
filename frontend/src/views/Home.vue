@@ -474,8 +474,11 @@
                           </div>
                         </div>
                         <div class="col-lg-6">
-                          <div class="contact-form buddy_btn">
-                            <button type="submit">Request Call Back <i class="bi bi-arrow-right-short"></i></button>
+                          <div class="contact-form">
+                            <button type="submit" :disabled="isSubmittingForm">
+                              <span v-if="!isSubmittingForm">Request Call Back <i class="bi bi-arrow-right-short"></i></span>
+                              <span v-else>Submitting...</span>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -687,6 +690,7 @@ import testimonialXSX from '@/images/testimonials/XSX.jpg'
 import testimonialC from '@/images/testimonials/C.jpg'
 import testimonialMary from '@/images/testimonials/Mary.jpg'
 import testimonialDongni from '@/images/testimonials/dongni.jpg'
+import apiClient from '@/api/client'
 
 export default {
   name: 'Home',
@@ -710,6 +714,7 @@ export default {
       showSuccessModal: false,
       currentTestimonialIndex: 0,
       testimonialCarousel: null,
+      isSubmittingForm: false,
       contactForm: {
         name: '',
         email: '',
@@ -891,17 +896,33 @@ export default {
       console.log('Searching for:', this.searchQuery)
       this.searchOpen = false
     },
-    submitContactForm() {
-      console.log('Contact form submitted:', this.contactForm)
-      // Show success modal
-      this.showSuccessModal = true
-      // Reset form
-      this.contactForm = {
-        name: '',
-        email: '',
-        phone: '',
-        website: '',
-        message: ''
+    async submitContactForm() {
+      if (this.isSubmittingForm) return
+      
+      this.isSubmittingForm = true
+      try {
+        // Submit form data to backend
+        const response = await apiClient.post('/contact', this.contactForm)
+        
+        if (response.data.success) {
+          // Show success modal
+          this.showSuccessModal = true
+          // Reset form
+          this.contactForm = {
+            name: '',
+            email: '',
+            phone: '',
+            website: '',
+            message: ''
+          }
+        } else {
+          alert('Failed to submit form. Please try again.')
+        }
+      } catch (error) {
+        console.error('Error submitting contact form:', error)
+        alert(error.response?.data?.message || 'Failed to submit form. Please try again.')
+      } finally {
+        this.isSubmittingForm = false
       }
     },
     closeSuccessModal() {
@@ -1571,6 +1592,22 @@ export default {
   /* Hide meanmenu default styling */
   .mean-container a.meanmenu-reveal {
     display: none !important;
+  }
+  
+  /* Contact form button styling */
+  .contact-form button {
+    display: inline-block;
+    cursor: pointer;
+    width: auto;
+  }
+  
+  .contact-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .contact-form button span {
+    display: inline-block;
   }
 }
 </style>

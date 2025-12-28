@@ -24,4 +24,9 @@ class Config:
         'pool_size': 10,
         'max_overflow': 20
     }
+    
+    # SendGrid Email configuration (Twilio owns SendGrid - use your Twilio/SendGrid API key)
+    # Get API key from: https://app.sendgrid.com/settings/api_keys (or Twilio Console)
+    SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY') or os.environ.get('TWILIO_SENDGRID_API_KEY')
+    MAIL_FROM = os.environ.get('MAIL_FROM') or 'web@grainstoryfarm.ca'
 
